@@ -1,19 +1,19 @@
 <nav id="dl-menu" class="dl-menuwrapper" role="navigation" style="display:inline-block">
 	<button class="dl-trigger">Open Menu</button>
 	<ul class="dl-menu">
-		<li><a href="{{ "/" | relURL }}">Home</a></li>
+		<li><a href="{{ "/" | relURL }}">Accueil</a></li>
 		<li>
-			<a href="#">About</a>
+			<a href="#">À propos</a>
 			<ul class="dl-submenu">
 			{{ with .Site.Params.author }}
-				<li>
+				<li style="text-align: center">
 					{{ if isset . "avatar" }}
 					<img src="{{ .avatar | relURL }}" alt="{{ .name }}'s photo" class="author-photo">
 					{{ end }}
 					<h4>{{ .name }}</h4>
 					<p>{{ .bio }}</p>
 				</li>
-				<li><a href="{{ "/about/" | relURL }}"><span class="btn btn-inverse">Learn More</span></a></li>
+				<li style="text-align: center"><a href="{{ "/about/" | relURL }}"><span class="btn btn-inverse">En savoir plus</span></a></li>
 				{{ if isset . "email" }}<li>
 					<a href="mailto:{{ .email }}"><i class="fa fa-fw fa-envelope"></i> Email</a>
 				</li>{{ end }}
@@ -47,13 +47,16 @@
 			{{ end }}
 			</ul><!-- /.dl-submenu -->
 		</li>
-		<li>
-			<a href="#">Posts</a>
+		<li><a href="{{ "/tags/" | relURL }}">All Tags</a></li>
+<!-- 		<li>
+			<a href="#">Test de sous-menus</a>
 			<ul class="dl-submenu">
-				<li><a href="{{ "/posts/" | relURL }}">All Posts</a></li>
-				<li><a href="{{ "/tags/" | relURL }}">All Tags</a></li>
+				<li><a href="{{ "/post/2016-01-31-unravel/" | relURL }}">direct-post</a></li>
+				<li><a href="{{ "/kungfu/kf-taos/" | relURL }}">page 1</a></li>
+				<li><a href="{{ "/kungfu/kf-videos/" | relURL }}">page 2</a></li>
 			</ul>
 		</li>
+ -->
 		{{ range .Site.Data.navigation.links }}
 	    <li><a href="{{ .url | relURL }}" {{ if in .url "http" }}target="_blank"{{ end }}>{{ .title }}</a></li>
 	  {{ end }}

@@ -1,15 +1,15 @@
 {{ partial "head.html" . }}
-<body id="{{ if eq .Type "page" }}page{{ else }}post{{ end }}" {{ if isset ($.Scratch.Get "Params") "image" }}class="feature"{{ end }}>
+<body id="{{ if eq .Type "page" }}page{{ else }}post{{ end }}" class="feature">
 {{ partial "navigation.html" . }}
- {{ if isset ($.Scratch.Get "Params") "image" }}
 <div class="entry-header">
 {{ $imageparams := index ($.Scratch.Get "Params") "image" }}
-	{{ if $imageparams.credit }}<div class="image-credit">Image credit: <a {{ with $imageparams.creditlink }}href="{{ . }}"{{ end }}>{{ $imageparams.credit }}</a></div><!-- /.image-credit -->{{ end }}
+  {{ if .Params.thumbnail }}
     <div class="entry-image">
-      <img src="{{ $imageparams.feature | relURL }}" alt="{{ .Title }}">
+      <img src="{{ .Params.thumbnail | relURL }}" alt="{{ .Title }}">
     </div><!-- /.entry-image -->
-</div><!-- /.entry-header -->
   {{ end }}
+
+</div><!-- /.entry-header -->
 
 <div id="main" role="main">
   <article class="hentry">
@@ -21,11 +21,11 @@
           <h1 class="entry-title"><a href="{{ .RelPermalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></h1>
         {{ end }}
         {{ if and (ne .Type "page") (gt .Date 0001) }} <!-- If Date is set (greater than year 0001) -->
-        <h2><span class="entry-date date published"><time datetime="{{ .Date }}">{{ .Date.Format "January 2, 2006" }}</time></span></h2>
+        <h2><span class="entry-date date published"><time datetime="{{ .Date }}">{{ .Date.Format "2006-01-02" }}</time></span></h2>
         {{ end }}
       <p class="entry-reading-time">
         <i class="fa fa-clock-o"></i>
-        Reading time ~{{ if le .ReadingTime 1 }}1 minute{{ else }}{{ .ReadingTime }} minutes{{ end }}
+        Lecture ~{{ if le .ReadingTime 1 }}1 minute{{ else }}{{ .ReadingTime }} minutes{{ end }}
     </p><!-- /.entry-reading-time -->
       </div><!-- /.header-title-wrap -->
     </header>
@@ -37,12 +37,8 @@
         {{ end }}
         {{ if gt .Lastmod .Date }}<span>Updated on <span class="entry-date date updated"><time datetime="{{ .Lastmod }}">{{ .Lastmod.Format "Jan 2, 2006" }}</time></span></span>
         <span class="author vcard"><span class="fn">{{ $.Site.Params.author.name }}</span></span>{{ end }}
-        {{ if not (eq .Params.share false) }}{{ partial "share.html" . }}{{ end }}
       </footer>
     </div><!-- /.entry-content -->
-    {{ if ne .Params.comments false }}
-    <section id="disqus_thread">{{ partial "disqus.html" . }}</section><!-- /#disqus_thread -->
-    {{ end }}
   </article>
 </div><!-- /#main -->
 {{ partial "foot.html" . }}
