@@ -29,6 +29,8 @@
 </div><!-- /.entry-header -->
 
 <div id="main" role="main">
+{{ partial "pagination.html" . }}
+
 {{ range where .Paginator.Pages "Type" "!=" "page" }}
 <article class="hentry">
   <header>
